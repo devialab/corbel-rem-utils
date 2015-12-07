@@ -25,9 +25,9 @@ credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 publishTo := {
   val artifactory = "http://artifacts.devialab.com/artifactory/"
   if (isSnapshot.value)
-    Some("snapshots" at artifactory + "devialab-snapshot;build.timestamp=" + new java.util.Date().getTime)
+    Some("snapshots" at artifactory + "devialab-snapshot-local;build.timestamp=" + new java.util.Date().getTime)
   else
-    Some("releases"  at artifactory + "devialab-release")
+    Some("releases"  at artifactory + "devialab-release-local")
 }
 
 publishMavenStyle := true
