@@ -8,7 +8,7 @@ scalaVersion := "2.11.7"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 libraryDependencies in ThisBuild ++= Seq(
-  "io.corbel" % "rem-api" % "1.25.0" % "provided",
+  "io.corbel" % "rem-api" % "1.27.0" % "provided",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test"
 )
 
