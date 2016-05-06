@@ -9,6 +9,8 @@ licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 libraryDependencies in ThisBuild ++= Seq(
   "io.corbel" % "rem-api" % "1.27.0" % "provided",
+  "com.google.code.gson" % "gson" % "2.6.1",
+  "org.json4s" %% "json4s-native" % "3.3.0",
   "org.scalatest" %% "scalatest" % "2.2.1" % "test"
 )
 
