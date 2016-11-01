@@ -42,6 +42,12 @@ class GsonScalaConversionsTest extends FlatSpec with Matchers {
     json.get("b").getAsInt should be (1)
   }
 
+  it should "ignore extra fields" in {
+    val json = new JsonParser().parse("""[{"a":"a", "b": 1, "c":"ignore"}]""")
+    val converted = gson.jsonTreeToScala[Seq[TestObject]](json)
+    converted.head.a should be("a")
+    converted.head.b should be(1)
+  }
 }
 
 case class TestObject(a: String, b: Int)

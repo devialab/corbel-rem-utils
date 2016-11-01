@@ -10,11 +10,12 @@ import scala.reflect.{ClassTag, classTag}
 /**
   * @author Alexander De Leon (alex.deleon@devialab.com)
   */
-trait InjectableRemService extends ScalaRemPlugin{
+trait InjectableServices extends ScalaRemPlugin {
 
   def bootstrapApplicationContext[IoC: ClassTag]: ApplicationContext = {
     val parent: GenericApplicationContext = new GenericApplicationContext
     parent.getBeanFactory.registerSingleton("remService", implicitRemService)
+    parent.getBeanFactory.registerSingleton("serviceLocator", implicitServiceLocator)
     parent.refresh
     val context: AnnotationConfigApplicationContext = new AnnotationConfigApplicationContext
     context.register(classTag[IoC].runtimeClass)
@@ -24,3 +25,8 @@ trait InjectableRemService extends ScalaRemPlugin{
   }
 
 }
+
+/**
+  * @deprecated use InjectableServices
+  */
+trait InjectableRemService extends InjectableServices
