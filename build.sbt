@@ -17,7 +17,8 @@ libraryDependencies in ThisBuild ++= Seq(
 resolvers in ThisBuild ++= Seq(
   Resolver.mavenLocal,
   Resolver.sonatypeRepo("releases"),
-  Resolver.sonatypeRepo("snapshots")
+  Resolver.sonatypeRepo("snapshots"),
+  "Spring Milestone Repository" at "http://repo.spring.io/milestone"
 )
 
 // Publishing settings
