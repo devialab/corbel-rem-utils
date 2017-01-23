@@ -1,8 +1,9 @@
 package io.corbel.resources.rem.utils.json
 
-import com.google.gson.{Gson, JsonElement}
+import com.google.gson.{Gson, JsonElement, JsonObject}
 import org.json4s.Formats
 import org.json4s.native.Serialization._
+import scala.collection.JavaConverters._
 
 
 /**
@@ -15,5 +16,8 @@ object GsonScalaConversions {
 
     def jsonTreeToScala[T <: AnyRef](json: JsonElement)(implicit format: Formats,  manifest: Manifest[T]) = read[T](json.toString)
   }
+
+  implicit def mapAsJsonObject(map: Map[String, Any])(implicit gson: Gson): JsonObject =
+    gson.toJsonTree(map.asJava).getAsJsonObject
 
 }
