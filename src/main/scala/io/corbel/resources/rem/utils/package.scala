@@ -4,6 +4,8 @@ import javax.ws.rs.core.Response
 
 import com.google.gson.JsonObject
 import io.corbel.resources.rem.service.RemService
+import org.json4s.Formats
+import org.json4s.native.Serialization.write
 import org.springframework.http.{HttpMethod, MediaType}
 
 import scala.collection.JavaConversions._
@@ -31,6 +33,14 @@ package object utils {
       */
     def isOk = response.getStatus / 100 == 2
   }
+
+  implicit class ResponseBuilderWrapper(val builder: Response.ResponseBuilder) extends AnyVal {
+    def json[T <: AnyRef](obj: T)(implicit formats: Formats) =
+      builder
+        .`type`(javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE)
+        .entity(write[T](obj))
+  }
+
 
   def asResmiResponse(f: =>Response): ResmiRespose = Try(f) match {
     case Success(resp: Response) => resp
