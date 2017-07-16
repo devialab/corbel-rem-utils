@@ -1,15 +1,23 @@
 package io.corbel.resources.rem
 
+import java.net.URI
+import java.util.Optional
 import javax.ws.rs.core.Response
 
-import com.google.gson.JsonObject
+import com.google.gson.{JsonArray, JsonObject}
+import io.corbel.lib.queries.builder.QueryParametersBuilder
+import io.corbel.lib.queries.request.Pagination
+import io.corbel.resources.rem.request.builder.RequestParametersBuilder
+import io.corbel.resources.rem.request._
 import io.corbel.resources.rem.service.RemService
 import org.json4s.Formats
 import org.json4s.native.Serialization.write
 import org.springframework.http.{HttpMethod, MediaType}
+import rx.lang.scala.{Observable, Subscriber}
 
 import scala.collection.JavaConversions._
 import scala.util.{Failure, Success, Try}
+import scala.compat.java8.OptionConverters._
 
 /**
  * @author Alexander De Leon <alex.deleon@devialab.com>
@@ -56,4 +64,6 @@ package object utils {
     implicit def responseAsResmiResponse(resp: Response): ResmiRespose = if(resp.isOk) SuccessfulResponse(resp) else FailedResponse(resp)
   }
 
+
+  implicit class RemWrapper(val rem: Rem[JsonObject]) extends ResmiStreams
 }

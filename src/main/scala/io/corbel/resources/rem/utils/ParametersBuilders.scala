@@ -1,6 +1,7 @@
 package io.corbel.resources.rem.utils
 
 import java.util.Optional
+import javax.ws.rs.core.MultivaluedHashMap
 
 import io.corbel.lib.queries.builder.QueryParametersBuilder
 import io.corbel.resources.rem.request._
@@ -22,14 +23,30 @@ trait ParametersBuilders {
       .acceptedMediaType(MediaType.APPLICATION_JSON)
 
   protected def collectionEmptyParameters(implicit corbelDomain: CorbelDomain): RequestParameters[CollectionParameters] =
-    collectionParametersBuilder.apiParameters(new CollectionParametersImpl(new QueryParametersBuilder().build())).build()
+    collectionParametersBuilder
+      .apiParameters(new CollectionParametersImpl(new QueryParametersBuilder().build()))
+      .params(new MultivaluedHashMap[String, String]())
+      .headers(new MultivaluedHashMap[String, String]())
+      .build()
 
   protected def resourceEmptyParameters(implicit corbelDomain: CorbelDomain): RequestParameters[ResourceParameters] =
-    resourceParametersBuilder.apiParameters(new ResourceParametersImpl(new QueryParametersBuilder().build())).build()
+    resourceParametersBuilder
+      .apiParameters(new ResourceParametersImpl(new QueryParametersBuilder().build()))
+      .params(new MultivaluedHashMap[String, String]())
+      .headers(new MultivaluedHashMap[String, String]())
+      .build()
 
   protected def relationEmptyParameters(implicit corbelDomain: CorbelDomain): RequestParameters[RelationParameters] =
-    relationParametersBuilder.apiParameters(new RelationParametersImpl(new QueryParametersBuilder().build(), Optional.empty())).build()
+    relationParametersBuilder
+      .apiParameters(new RelationParametersImpl(new QueryParametersBuilder().build(), Optional.empty()))
+      .params(new MultivaluedHashMap[String, String]())
+      .headers(new MultivaluedHashMap[String, String]())
+      .build()
 
   protected def relationWithRelationIdParameters(relationId: String)(implicit corbelDomain: CorbelDomain): RequestParameters[RelationParameters] =
-    relationParametersBuilder.apiParameters(new RelationParametersImpl(new QueryParametersBuilder().build(), Optional.of(relationId))).build()
+    relationParametersBuilder
+      .apiParameters(new RelationParametersImpl(new QueryParametersBuilder().build(), Optional.of(relationId)))
+      .params(new MultivaluedHashMap[String, String]())
+      .headers(new MultivaluedHashMap[String, String]())
+      .build()
 }
